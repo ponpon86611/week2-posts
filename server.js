@@ -21,7 +21,7 @@ const requestListener = async (req, res) => {
   const url = req.url;
   if(url === '/posts') {
     postRouter(req, res, 'GPD');
-  } else if(url.startsWith('/posts/')) {
+  } else if(url.startsWith('/posts/') && req.method !== 'GET') {//DELETE 單筆 、 PATCH
     postRouter(req, res, 'DP');
   } else {
     errorHandler(res, '無此網站路由', 400);
