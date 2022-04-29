@@ -19,10 +19,11 @@ mongoose
 
 const requestListener = async (req, res) => {
   const url = req.url;
-
-  if(url === '/posts' || url.startsWith('/posts/')) {
-    postRouter(req, res);
-  }else {
+  if(url === '/posts') {
+    postRouter(req, res, 'GPD');
+  } else if(url.startsWith('/posts/')) {
+    postRouter(req, res, 'DP');
+  } else {
     errorHandler(res, '無此網站路由', 400);
   }
 }

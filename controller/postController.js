@@ -10,7 +10,7 @@ const postController = {
             errorHandler(res,'取得post失敗',400);
         }
     },
-     async addPost(req, res, body) {
+     async addPost(res, body) {
          try{
              const post = JSON.parse(body);
              const {userName, content} = post;
@@ -32,7 +32,7 @@ const postController = {
                 await Post.deleteMany({});
                 const posts = await Post.find();
                 successHandleSuccess(res, posts, 200);
-            } else if(requestUrl.startsWith('/posts/') && requestUrl.split('/').length === 3) {
+            } else if(requestUrl.startsWith('/posts/')) {
                 //刪除單筆
                 const id = requestUrl.split('/').pop();
                 const posts = Post.findByIdAndDelete(id, async(error, doc) => 
@@ -45,8 +45,6 @@ const postController = {
                     }
                 })
 
-            } else {
-                errorHandler(res, '無此網站路由',400);
             }
          } catch(err) {
             errorHandler(res, '刪除 post 失敗',400);
